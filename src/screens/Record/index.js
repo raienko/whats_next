@@ -6,13 +6,18 @@ import Camera from './Camera';
 import Controls from './Controls';
 
 export default function Record({ changeScreen }) {
-  const [ready, setReady] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const handleCameraReady = () => setLoading(false);
+
+  const back = () => changeScreen('Browse');
+
   return (
     <View style={styles.wrapper}>
-      <Camera onReady={() => setReady(true)} />
-      <Button onPress={() => changeScreen('Browse')} text="button_back" style={styles.back} />
+      <Camera onReady={handleCameraReady} />
+      <Button onPress={back} text="button_back" style={styles.back} />
       <Controls />
-      {!ready && <Spinner />}
+      <Spinner visible={loading} />
     </View>
   );
 }
