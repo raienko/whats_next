@@ -14,7 +14,7 @@ export default function Button({text, style, ...rest}) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    width: rem(100),
+    width: rem(250),
     height: rem(50),
     alignItems: 'center',
     justifyContent: 'center',

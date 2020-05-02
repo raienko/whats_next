@@ -14,7 +14,8 @@
     "lottie-react-native": "^3.3.2",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-native-camera": "^3.23.1"
+    "react-native-camera": "^3.23.1",
+    "react-native-video": "^4.4.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

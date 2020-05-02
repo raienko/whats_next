@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {screenHeight, screenWidth} from 'src/utils/metrics';
 import {RNCamera} from 'react-native-camera';
@@ -17,12 +17,30 @@ const androidAudioRequest = {
   buttonNegative: 'Cancel',
 };
 
-export default function Camera({ onReady }) {
+export default function Camera({onReady, onRef}) {
   const cam = useRef();
 
   const registerCamera = (ref) => {
     cam.current = ref;
   };
+
+  const record = (options) => {
+    const config = {
+      codec: RNCamera.Constants.VideoCodec.H264,
+      ...options,
+      maxDuration: 30,
+      quality: RNCamera.Constants.VideoQuality['720p'],
+    };
+    return cam.current.recordAsync(config);
+  };
+
+  const stop = () => cam.current.stopRecording();
+
+  useEffect(() => {
+    if (onRef) {
+      onRef({record, stop});
+    }
+  }, [onRef]);
 
   return (
     <View style={styles.wrapper}>

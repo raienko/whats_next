@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 import {rem} from 'src/utils/metrics';
 import animation from './animation';
 
-const duration = 500;
+const duration = 700;
 const createAnimation = (value, toValue) => Animated.timing(value, {toValue, duration, useNativeDriver: true});
 
 export default function Spinner({ visible }) {
@@ -57,9 +57,13 @@ export default function Spinner({ visible }) {
 
   return (
     <Animated.View style={[styles.wrapper, {opacity: opacity.current}]}>
-      <View style={styles.container}>
-        <LottieView source={animation} autoPlay loop ref={registerPlayer} />
-      </View>
+      <LottieView
+        source={animation}
+        autoPlay
+        loop
+        ref={registerPlayer}
+        style={styles.container}
+      />
     </Animated.View>
   );
 }
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
   },
   container: {
-    width: rem(200),
-    height: rem(200),
+    width: rem(300),
+    height: rem(300),
   },
 });
