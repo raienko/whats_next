@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import Text from 'src/components/Text';
 import {PreferencesContext} from 'src/Preferences';
 import {languages} from 'src/utils/translate';
-import {offset} from 'src/utils/metrics';
+import * as theme from 'src/theme';
 import Touchable from 'src/components/Touchable';
 
 const flags = {
@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
   btn: {
-    padding: offset,
+    padding: theme.offset,
   },
   active: {
-    backgroundColor: '#0F0',
+    backgroundColor: theme.colors.primary,
   },
 });

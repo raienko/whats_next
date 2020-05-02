@@ -1,25 +1,31 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {rem, offset} from 'src/utils/metrics';
 import Touchable from 'src/components/Touchable';
 import Text from 'src/components/Text';
+import * as theme from 'src/theme';
 
-export default function Button({text, style, ...rest}) {
+export default function Button({text, value, disabled, style, ...rest}) {
   return (
-    <Touchable {...rest} style={[styles.wrapper].concat(style)}>
-      <Text text={text} />
+    <Touchable {...rest} disabled={disabled} style={[styles.wrapper, disabled && styles.disabled].concat(style)}>
+      <Text text={text} value={value} style={styles.text} />
     </Touchable>
   );
 }
 
 const styles = StyleSheet.create({
   wrapper: {
-    width: rem(250),
-    height: rem(50),
+    height: theme.height,
+    borderRadius: theme.borderRadius,
+    padding: theme.offset,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#64ff82',
-    borderRadius: rem(5),
-    margin: offset,
+    backgroundColor: theme.colors.secondary,
+    margin: theme.offset,
+  },
+  disabled: {
+    backgroundColor: theme.colors.disabled,
+  },
+  text: {
+    color: theme.colors.basic,
   },
 });

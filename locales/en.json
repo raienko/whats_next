@@ -8,6 +8,5 @@
   "button_continue": "Continue",
   "button_create": "Create",
   "button_back": "Back",
-  "button_split_a": "Record A",
-  "button_split_b": "Record B"
+  "button_record": "Record"
 }

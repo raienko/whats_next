@@ -1,8 +1,10 @@
 import React, {useState, useRef} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Spinner from 'src/components/Spinner';
+import Button from 'src/components/Button';
+import {rem} from 'src/utils/metrics';
 import Camera from './Camera';
-import Controls from './Controls';
+import SplitSetup from './SplitSetup';
 import {recordStatus} from './constants';
 
 class Node {
@@ -72,10 +74,6 @@ export default function Record({changeScreen}) {
     updateNode(nodeId, {label});
   };
 
-  const selectBranch = async (nodeId) => {
-    await startRecording(nodeId);
-  };
-
   const setBreakpoint = async () => {
     const nodeA = new Node(index + 1);
     const edgeA = new Edge(current, nodeA.id);
@@ -87,23 +85,25 @@ export default function Record({changeScreen}) {
     stopRecording();
     setStatus(recordStatus.splitting);
   };
-console.log({ nodes, edges, status, current });
+
+  const preview = () => {
+    console.log({edges, nodes, current, status, index});
+  };
+
   return (
     <View style={styles.wrapper}>
       <Camera onReady={handleCameraReady} onRef={registerCamera} />
-      <Controls
-        status={status}
-        onStart={start}
-        onStop={stop}
-        onSplit={setBreakpoint}
-        onBack={leaveScreen}
-        onEditLabel={editLabel}
-        onBranchSelected={selectBranch}
-        onPreview={() => {}}
-        nodes={nodes}
-        edges={edges}
-        current={current}
-      />
+      <View style={styles.controls}>
+        <Button text="button_back" onPress={leaveScreen} style={styles.back} />
+        {status === recordStatus.idle && <Button text="button_start" onPress={start} />}
+        {status === recordStatus.recording && <Button text="button_split" onPress={setBreakpoint} />}
+        {status === recordStatus.recording && <Button text="button_stop" onPress={stop} />}
+        {
+          status === recordStatus.splitting
+          && <SplitSetup nodes={nodes} edges={edges} current={current} onStart={startRecording} onEditLabel={editLabel}/>
+        }
+        {status === recordStatus.finished && <Button text="button_preview" onPress={preview} />}
+      </View>
       <Spinner visible={loading} />
     </View>
   );
@@ -119,6 +119,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 10,
     top: 50,
+  },
+  controls: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: rem(350),
   },
 });
 

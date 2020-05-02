@@ -1,18 +1,26 @@
 import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
-import {rem, offset} from 'src/utils/metrics';
+import * as theme from 'src/theme';
 
 export default function Input({style, ...rest}) {
-  return <TextInput {...rest} style={[styles.input].concat(style)} />;
+  return (
+    <TextInput
+      {...rest}
+      style={[styles.input].concat(style)}
+      placeholderTextColor={theme.colors.disabled}
+    />
+  );
 }
 
 export const styles = StyleSheet.create({
   input: {
     fontSize: 20,
-    height: rem(30),
-    width: rem(320),
-    borderWidth: 1,
-    backgroundColor: '#fff',
-    margin: offset,
+    height: theme.height,
+    borderRadius: theme.borderRadius,
+    borderWidth: theme.borderWidth,
+    backgroundColor: theme.colors.basic,
+    color: theme.colors.inverted,
+    margin: theme.offset,
+    paddingHorizontal: theme.offset,
   },
 });
