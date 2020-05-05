@@ -1,15 +1,18 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {rem} from 'src/utils/metrics';
 import Button from 'src/components/Button';
 import Languages from './Languages';
 
-export default function Browse({changeScreen}) {
+export default function Home() {
+  const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
       <Languages />
       <View style={styles.gallery} />
-      <Button text="button_create" onPress={() => changeScreen('Record')} />
+      <Button text="button_play" onPress={() => navigation.navigate('Play')} />
+      <Button text="button_create" onPress={() => navigation.navigate('Create')} />
     </View>
   );
 }

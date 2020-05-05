@@ -2,11 +2,17 @@
   "button_start": "Start",
   "button_split": "Split",
   "button_stop": "Stop",
+  "button_play": "Play",
   "button_save": "Save",
   "button_reset": "Reset",
   "button_preview": "Preview",
   "button_continue": "Continue",
   "button_create": "Create",
   "button_back": "Back",
-  "button_record": "Record"
+  "button_record": "Record",
+  "button_share": "Share",
+  "button_episode_a": "Left episode",
+  "button_episode_b": "Right episode",
+  "label_placeholder": "Name episode",
+  "button_finish_episode": "Finish episode"
 }

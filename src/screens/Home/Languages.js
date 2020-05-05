@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     padding: theme.offset,
+    borderRadius: theme.borderRadius,
   },
   active: {
     backgroundColor: theme.colors.primary,
