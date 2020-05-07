@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Spinner from 'src/components/Spinner';
 import Button from 'src/components/Button';
+import Back from 'src/components/Back';
 import {rem} from 'src/utils/metrics';
 import reducer, {initialState} from './state/reducer';
 import * as actions from './state/actions';
@@ -84,7 +85,7 @@ export default function Create() {
           state.status === status.finished
           && <Button text="button_preview" onPress={preview} />
         }
-        <Button text="button_back" onPress={leaveScreen} style={styles.back} />
+        <Back onPress={leaveScreen} style={styles.back} />
       </View>
       <Spinner visible={state.status === status.loading} />
     </View>

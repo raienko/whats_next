@@ -6,7 +6,11 @@ import * as theme from 'src/theme';
 
 export default function Button({text, value, disabled, style, ...rest}) {
   return (
-    <Touchable {...rest} disabled={disabled} style={[styles.wrapper, disabled && styles.disabled].concat(style)}>
+    <Touchable
+      {...rest}
+      disabled={disabled}
+      style={[styles.wrapper].concat(style, disabled && styles.disabled)}
+    >
       <Text text={text} value={value} style={styles.text} />
     </Touchable>
   );
@@ -15,12 +19,14 @@ export default function Button({text, value, disabled, style, ...rest}) {
 const styles = StyleSheet.create({
   wrapper: {
     height: theme.height,
+    minWidth: theme.height * 3,
     borderRadius: theme.borderRadius,
-    padding: theme.offset,
+    paddingVertical: theme.offset,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.secondary,
     margin: theme.offset,
+    ...theme.shadow,
   },
   disabled: {
     backgroundColor: theme.colors.disabled,

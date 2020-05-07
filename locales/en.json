@@ -15,6 +15,7 @@
   "button_share": "Share",
   "button_episode_a": "Left episode",
   "button_episode_b": "Right episode",
-  "label_placeholder": "Name episode",
-  "button_finish_episode": "Finish episode"
+  "button_finish_episode": "Finish episode",
+  "episode": "Episode",
+  "episode_name_placeholder": "Enter name"
 }

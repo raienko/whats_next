@@ -11,7 +11,7 @@ export default function Input({style, placeholder, ...rest}) {
       {...rest}
       placeholder={translate(placeholder, language)}
       style={[styles.input].concat(style)}
-      placeholderTextColor={theme.colors.disabled}
+      placeholderTextColor="#eee"
     />
   );
 }
@@ -20,12 +20,13 @@ export const styles = StyleSheet.create({
   input: {
     fontSize: 20,
     height: theme.height,
-    borderRadius: theme.borderRadius,
-    borderWidth: theme.borderWidth,
-    backgroundColor: theme.colors.basic,
-    color: theme.colors.inverted,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    color: '#fff',
     margin: theme.offset,
     paddingHorizontal: theme.offset,
+    borderRadius: theme.borderRadius,
     textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

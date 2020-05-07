@@ -11,7 +11,7 @@ export default function Home() {
     <View style={styles.wrapper}>
       <Languages />
       <View style={styles.gallery} />
-      <Button text="button_play" onPress={() => navigation.navigate('Play')} />
+      {/*<Button text="button_play" onPress={() => navigation.navigate('Play')} />*/}
       <Button text="button_create" onPress={() => navigation.navigate('Create')} />
     </View>
   );

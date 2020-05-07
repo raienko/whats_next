@@ -59,8 +59,14 @@ export default function Play({route, navigation}) {
       {
         options &&
         <View style={styles.controls}>
-          <Button value={options[0].name} onPress={() => select(options[0].id)} />
-          <Button value={options[1].name} onPress={() => select(options[1].id)}/>
+          <Button
+            value={options[0].name}
+            onPress={() => select(options[0].id)}
+          />
+          <Button
+            value={options[1].name}
+            onPress={() => select(options[1].id)}
+          />
         </View>
       }
       <Button text="button_restart" onPress={start} />

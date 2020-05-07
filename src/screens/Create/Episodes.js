@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
-import LottieView from 'lottie-react-native';
+import Icon from 'src/components/Icon';
 import Text from 'src/components/Text';
 import Button from 'src/components/Button';
 import {rem} from 'src/utils/metrics';
@@ -13,7 +13,7 @@ export default function Episodes({state, onPlay, onRecord}) {
       <Text value={!item.id ? 'Initial' : item.name} />
       <View style={styles.controls}>
         {
-          item.video && <LottieView source={animation} style={styles.icon} ref={ref => ref && ref.play()} loop={false} />
+          item.video && <Icon source={animation} size={rem(50)} autoPlay loop={false} />
         }
         {
           !item.video && <Button text="button_record" onPress={() => onRecord(item.id)} />
@@ -21,21 +21,24 @@ export default function Episodes({state, onPlay, onRecord}) {
       </View>
     </View>
   );
+  console.log({ state });
   const finished = !state.nodes.find((node) => !node.video);
   return (
-    <View style={styles.wrapper}>
-      <FlatList
-        bounces={false}
-        data={state.nodes}
-        renderItem={renderEpisode}
-        keyExtractor={(item) => `${item.id}`}
-        style={styles.list}
-        contentContainerStyle={styles.container}
-      />
-      {
-        finished && <Button text="button_play" onPress={onPlay} />
-      }
-    </View>
+    <>
+      <View style={styles.wrapper}>
+        <FlatList
+          bounces={false}
+          data={state.nodes}
+          renderItem={renderEpisode}
+          keyExtractor={(item) => `${item.id}`}
+          style={styles.list}
+          contentContainerStyle={styles.container}
+        />
+        {
+          finished && <Button text="button_play" onPress={onPlay} />
+        }
+      </View>
+    </>
   );
 }
 
@@ -65,8 +68,11 @@ const styles = StyleSheet.create({
   divider: {
     borderTopWidth: 1,
   },
-  icon: {
-    width: rem(50),
-    height: rem(50),
+  likes: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: rem(380),
+    height: rem(300),
   },
 });

@@ -36,9 +36,11 @@ export default function Camera({onReady, onRef}) {
 
   const stop = () => cam.current.stopRecording();
 
+  const capture = () => cam.current.takePictureAsync();
+
   useEffect(() => {
     if (onRef) {
-      onRef({record, stop});
+      onRef({record, stop, capture});
     }
   }, [onRef]);
 

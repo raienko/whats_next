@@ -3,7 +3,8 @@ import {View, StyleSheet} from 'react-native';
 import Text from 'src/components/Text';
 import {PreferencesContext} from 'src/Preferences';
 import {languages} from 'src/utils/translate';
-import * as theme from 'src/theme';
+import {rem} from 'src/utils/metrics';
+import {useSafeArea} from 'react-native-safe-area-context';
 import Touchable from 'src/components/Touchable';
 
 const flags = {
@@ -13,39 +14,33 @@ const flags = {
 
 export default function Languages() {
   const {language, changeLanguage} = useContext(PreferencesContext);
+  const insets = useSafeArea();
   const renderButton = (lang) => {
     const active = language === lang;
     return (
-      <Touchable
-        key={lang}
-        disabled={active}
-        onPress={() => changeLanguage(lang)}
-        style={[styles.btn, active && styles.active]}>
-        <Text style={styles.flag}>{flags[lang]}</Text>
+      <Touchable key={lang} disabled={active} onPress={() => changeLanguage(lang)}>
+        <Text style={[styles.flag, active && styles.active]}>{flags[lang]}</Text>
       </Touchable>
     );
   };
   return (
-    <View style={styles.wrapper}>
-      {
-        languages.map(renderButton)
-      }
+    <View style={[styles.wrapper, {top: insets.top}]}>
+      {languages.map(renderButton)}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   wrapper: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
     flexDirection: 'row',
   },
   flag: {
-    fontSize: 50,
-  },
-  btn: {
-    padding: theme.offset,
-    borderRadius: theme.borderRadius,
+    fontSize: rem(40),
   },
   active: {
-    backgroundColor: theme.colors.primary,
+    fontSize: rem(45),
   },
 });

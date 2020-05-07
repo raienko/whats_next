@@ -16,3 +16,13 @@ export const colors = {
   tertiary: '#244EAE',
   disabled: '#999',
 };
+
+export const shadow = {
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.3,
+  shadowRadius: 2,
+  elevation: 4,
+};

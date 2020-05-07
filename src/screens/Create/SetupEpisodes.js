@@ -2,17 +2,19 @@ import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import Button from 'src/components/Button';
 import {rem} from 'src/utils/metrics';
-import Input from 'src/components/Input';
 import * as theme from 'src/theme';
+import EpisodeInfo from './EpisodeInfo';
 
 export default function SetupEpisodes({onEdit, state, onStart}) {
   const [nodeA, setNodeA] = useState(null);
   const [nodeB, setNodeB] = useState(null);
+  const [active, setActive] = useState();
 
   useEffect(() => {
     const edges = state.edges.filter((edge) => edge.from === state.currentNode);
     const firstNode = state.nodes.find((node) => node.id === edges[0].to);
     const secondNode = state.nodes.find((node) => node.id === edges[1].to);
+    setActive(firstNode.id);
     setNodeA(firstNode);
     setNodeB(secondNode);
   }, [state]);
@@ -37,29 +39,23 @@ export default function SetupEpisodes({onEdit, state, onStart}) {
 
   return (
     <View style={styles.wrapper}>
-      <Input
-        value={nodeA.name}
-        style={styles.input}
-        placeholder="label_placeholder"
-        onChangeText={(name) => updateNodeA({name})}
+      <EpisodeInfo
+        episode={nodeA}
+        onEdit={updateNodeA}
+        style={[styles.containerA, active === nodeA.id && styles.active]}
+        onPress={() => setActive(nodeA.id)}
+      />
+      <EpisodeInfo
+        episode={nodeB}
+        onEdit={updateNodeB}
+        style={[styles.containerB, active === nodeB.id && styles.active]}
+        onPress={() => setActive(nodeB.id)}
       />
       <Button
         text="button_record"
-        onPress={start(nodeA.id)}
-        disabled={!nodeA.name}
-        style={styles.button}
-      />
-      <Input
-        value={nodeB.name}
-        style={styles.input}
-        placeholder="label_placeholder"
-        onChangeText={(name) => updateNodeB({name})}
-      />
-      <Button
-        text="button_record"
-        onPress={start(nodeB.id)}
-        disabled={!nodeB.name}
-        style={styles.button}
+        onPress={start(active)}
+        disabled={!nodeA.name || !nodeB.name}
+        style={[styles.button, active === nodeA.id ? styles.activeA : styles.activeB]}
       />
     </View>
   );
@@ -67,12 +63,45 @@ export default function SetupEpisodes({onEdit, state, onStart}) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    padding: rem(30),
-    backgroundColor: theme.colors.primary,
+    padding: theme.offset,
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    height: rem(210),
+    width: rem(370),
+  },
+  active: {
+    zIndex: 10,
+  },
+  containerA: {
+    position: 'absolute',
+    left: rem(0),
+    top: rem(10),
+    backgroundColor: '#ff003f',
+  },
+  activeA: {
+    backgroundColor: '#ff003f',
+  },
+  containerB: {
+    position: 'absolute',
+    right: rem(0),
+    top: rem(15),
+    backgroundColor: '#00aaff',
+  },
+  activeB: {
+    backgroundColor: '#00aaff',
+  },
+  title: {
+    marginLeft: theme.offset,
+    fontSize: rem(30),
+    borderRadius: rem(3),
+    alignSelf: 'flex-start',
+  },
+  icon: {
+    width: rem(300),
+    height: rem(300),
   },
   input: {
-    width: rem(200),
+    width: rem(160),
   },
   button: {
     width: rem(100),
