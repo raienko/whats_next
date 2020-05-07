@@ -7,7 +7,7 @@ export const initialState = {
   nodes: [],
   edges: [],
   currentNode: undefined,
-  status: status.ready,
+  status: status.loading,
 };
 
 export default function reducer(state = initialState, action) {
@@ -34,12 +34,17 @@ const start = (state) => {
   return {...state, nodes: [node], currentNode: node.id};
 };
 
-const updateNode = (state, {node}) => {
-  const nodes = state.nodes.filter((n) => n.id !== node.id);
+const updateNode = (state, {id, changes}) => {
+  const nodes = state.nodes.filter((n) => n.id !== id);
+  const node = state.nodes.find((n) => n.id === id);
+  Object.keys(changes).forEach((key) => {
+    node[key] = changes[key];
+  });
   return {...state, nodes: nodes.concat(node)};
 };
 
 const createBreakpoint = (state) => {
+  console.log({ state, cur: state.currentNode });
   const nodeA = new Node(state.nodes.length);
   const nodeB = new Node(state.nodes.length + 1);
   const edgeA = new Edge(state.currentNode, nodeA.id);

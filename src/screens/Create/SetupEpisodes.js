@@ -25,6 +25,12 @@ export default function SetupEpisodes({onEdit, state, onStart}) {
     setNodeB((currentState) => ({...currentState, ...changes}));
   };
 
+  const start = (id) => async () => {
+    await onEdit(nodeA.id, nodeA);
+    await onEdit(nodeB.id, nodeB);
+    await onStart(id);
+  };
+
   if (!nodeA || !nodeB) {
     return null;
   }
@@ -39,7 +45,7 @@ export default function SetupEpisodes({onEdit, state, onStart}) {
       />
       <Button
         text="button_record"
-        onPress={() => onStart(nodeA.id)}
+        onPress={start(nodeA.id)}
         disabled={!nodeA.name}
         style={styles.button}
       />
@@ -51,7 +57,7 @@ export default function SetupEpisodes({onEdit, state, onStart}) {
       />
       <Button
         text="button_record"
-        onPress={() => onStart(nodeB.id)}
+        onPress={start(nodeB.id)}
         disabled={!nodeB.name}
         style={styles.button}
       />

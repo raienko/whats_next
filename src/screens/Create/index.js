@@ -4,12 +4,12 @@ import {useNavigation} from '@react-navigation/native';
 import Spinner from 'src/components/Spinner';
 import Button from 'src/components/Button';
 import {rem} from 'src/utils/metrics';
-import Text from 'src/components/Text';
 import reducer, {initialState} from './state/reducer';
 import * as actions from './state/actions';
 import {status} from './state/constants';
 import Camera from './Camera';
 import SetupEpisodes from './SetupEpisodes';
+import Episodes from './Episodes';
 
 export default function Create() {
   const navigation = useNavigation();
@@ -24,12 +24,17 @@ export default function Create() {
 
   const start = async () => {
     await actions.start(dispatch)();
-    await startRecording(state.currentNode);
+    await startRecording(0);
+  };
+
+  const stop = async () => {
+    await stopRecording();
+    await actions.setStatus(dispatch)(status.switching);
   };
 
   const startRecording = async (nodeId) => {
-    console.log({nodeId});
-    await startRecording();
+    await actions.setStatus(dispatch)(status.recording);
+    await actions.setCurrentNode(dispatch)(nodeId);
     const video = await camera.current.record();
     await actions.updateNode(dispatch)(nodeId, {video});
   };
@@ -54,9 +59,7 @@ export default function Create() {
   return (
     <View style={styles.wrapper}>
       <Camera onReady={handleCameraReady} onRef={registerCamera} />
-      <Text />
       <View style={styles.controls}>
-        <Button text="button_back" onPress={leaveScreen} style={styles.back} />
         {
           state.status === status.ready
           && <Button text="button_start" onPress={start} />
@@ -67,16 +70,21 @@ export default function Create() {
         }
         {
           state.status === status.recording
-          && <Button text="button_finish_episode" onPress={stopRecording} />
+          && <Button text="button_finish_episode" onPress={stop} />
         }
         {
           state.status === status.splitting
           && <SetupEpisodes state={state} onStart={startRecording} onEdit={editNode} />
         }
         {
+          state.status === status.switching
+          && <Episodes state={state} onRecord={startRecording} onPlay={() => navigation.push('Play', { state })} />
+        }
+        {
           state.status === status.finished
           && <Button text="button_preview" onPress={preview} />
         }
+        <Button text="button_back" onPress={leaveScreen} style={styles.back} />
       </View>
       <Spinner visible={state.status === status.loading} />
     </View>

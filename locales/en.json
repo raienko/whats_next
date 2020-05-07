@@ -3,6 +3,8 @@
   "button_split": "Split",
   "button_stop": "Stop",
   "button_play": "Play",
+  "button_restart": "Restart",
+  "button_overwrite": "Overwrite",
   "button_save": "Save",
   "button_reset": "Reset",
   "button_preview": "Preview",

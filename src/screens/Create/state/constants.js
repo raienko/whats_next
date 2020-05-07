@@ -3,6 +3,7 @@ export const status = {
   ready: 'ready',
   recording: 'recording',
   splitting: 'splitting',
+  switching: 'switching',
   finished: 'finished',
 };
 
