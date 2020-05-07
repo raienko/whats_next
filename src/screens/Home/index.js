@@ -1,18 +1,25 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {rem} from 'src/utils/metrics';
 import Button from 'src/components/Button';
-import Languages from './Languages';
+import Gallery from './Gallery';
 
 export default function Home() {
   const navigation = useNavigation();
+  const insets = useSafeArea();
+  const create = () => navigation.navigate('Create');
   return (
     <View style={styles.wrapper}>
-      <Languages />
-      <View style={styles.gallery} />
-      {/*<Button text="button_play" onPress={() => navigation.navigate('Play')} />*/}
-      <Button text="button_create" onPress={() => navigation.navigate('Create')} />
+      <View style={[styles.header, {paddingTop: insets.top}]}>
+
+      </View>
+      <Gallery />
+      <View style={[styles.footer, {paddingBottom: insets.bottom}]}>
+        <Button text="button_settings" />
+        <Button text="button_create" onPress={create} />
+      </View>
     </View>
   );
 }
@@ -20,11 +27,18 @@ export default function Home() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   gallery: {
     width: rem(300),
     height: rem(300),
+  },
+  header: {
+    backgroundColor: '#ccc',
+  },
+  footer: {
+    flexDirection: 'row',
+    backgroundColor: '#ccc',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

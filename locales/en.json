@@ -13,6 +13,8 @@
   "button_back": "Back",
   "button_record": "Record",
   "button_share": "Share",
+  "button_settings": "Settings",
+  "button_remove": "Remove",
   "button_episode_a": "Left episode",
   "button_episode_b": "Right episode",
   "button_finish_episode": "Finish episode",

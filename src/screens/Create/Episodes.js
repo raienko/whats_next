@@ -6,6 +6,7 @@ import Button from 'src/components/Button';
 import {rem} from 'src/utils/metrics';
 import * as theme from 'src/theme';
 import animation from './checked_animation';
+import gallery from 'src/utils/gallery';
 
 export default function Episodes({state, onPlay, onRecord}) {
   const renderEpisode = ({item, index}) => (
@@ -21,7 +22,11 @@ export default function Episodes({state, onPlay, onRecord}) {
       </View>
     </View>
   );
-  console.log({ state });
+
+  const save = async () => {
+    await gallery.saveProject(state);
+  };
+
   const finished = !state.nodes.find((node) => !node.video);
   return (
     <>
@@ -35,7 +40,11 @@ export default function Episodes({state, onPlay, onRecord}) {
           contentContainerStyle={styles.container}
         />
         {
-          finished && <Button text="button_play" onPress={onPlay} />
+          finished &&
+          <View style={styles.controls}>
+            <Button text="button_save" onPress={save} />
+            <Button text="button_play" onPress={onPlay} />
+          </View>
         }
       </View>
     </>
@@ -64,6 +73,8 @@ const styles = StyleSheet.create({
   },
   controls: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   divider: {
     borderTopWidth: 1,

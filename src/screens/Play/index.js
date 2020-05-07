@@ -61,10 +61,12 @@ export default function Play({route, navigation}) {
         <View style={styles.controls}>
           <Button
             value={options[0].name}
+            style={{backgroundColor: '#ff003f'}}
             onPress={() => select(options[0].id)}
           />
           <Button
             value={options[1].name}
+            style={{backgroundColor: '#00aaff'}}
             onPress={() => select(options[1].id)}
           />
         </View>
@@ -91,6 +93,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
   back: {
     position: 'absolute',
