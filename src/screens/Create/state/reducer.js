@@ -40,11 +40,12 @@ const updateNode = (state, {id, changes}) => {
   Object.keys(changes).forEach((key) => {
     node[key] = changes[key];
   });
-  return {...state, nodes: nodes.concat(node)};
+  const updated = nodes.concat(node);
+  updated.sort(sortById);
+  return {...state, nodes: updated};
 };
 
 const createBreakpoint = (state) => {
-  console.log({ state, cur: state.currentNode });
   const nodeA = new Node(state.nodes.length);
   const nodeB = new Node(state.nodes.length + 1);
   const edgeA = new Edge(state.currentNode, nodeA.id);
@@ -77,4 +78,8 @@ const resetState = () => {
   return {
     ...initialState,
   };
+};
+
+const sortById = (a, b) => {
+  return a.id > b.id ? 1 : -1;
 };

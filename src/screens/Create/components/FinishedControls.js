@@ -1,8 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {rem} from 'src/utils/metrics';
 
-export default function Episode({children}) {
+export default function Canvas({children}) {
   return (
     <View style={styles.wrapper}>
       {children}

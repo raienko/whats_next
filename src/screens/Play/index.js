@@ -3,8 +3,9 @@ import {View, StyleSheet, Alert} from 'react-native';
 import Video from 'react-native-video';
 import Text from 'src/components/Text';
 import Button from 'src/components/Button';
+import BackButton from 'src/components/BackButton';
 import Spinner from 'src/components/Spinner';
-import {rem, screenWidth, screenHeight} from 'src/utils/metrics';
+import {screenWidth, screenHeight} from 'src/utils/metrics';
 
 export default function Play({route, navigation}) {
   const player = useRef();
@@ -72,7 +73,7 @@ export default function Play({route, navigation}) {
         </View>
       }
       <Button text="button_restart" onPress={start} />
-      <Button style={styles.back} text="button_back" onPress={leaveScreen} />
+      <BackButton onPress={leaveScreen} />
       <Spinner visible={!episode} />
     </View>
   );
@@ -94,11 +95,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-  },
-  back: {
-    position: 'absolute',
-    left: rem(50),
-    top: rem(50),
   },
   title: {
     backgroundColor: 'yellow',

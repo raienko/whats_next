@@ -1,11 +1,11 @@
-import Project from 'src/models/Project';
+import Story from 'src/models/Story';
 import storage from 'src/utils/storage';
 
 const projectsDir = 'projects';
 
 export default new (class Gallery {
   saveProject = async (state) => {
-    const project = new Project(Date.now(), state, 'Me');
+    const project = new Story(Date.now(), state, 'Me');
     const projects = await this.getProjects();
     const updatedList = projects.concat(project);
     await storage.setItem(projectsDir, updatedList);

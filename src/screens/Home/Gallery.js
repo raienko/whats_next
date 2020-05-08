@@ -1,18 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, FlatList, View} from 'react-native';
-import Button from 'src/components/Button';
+import {useSafeArea} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import showNativeAlert from 'src/utils/showNativeAlert';
 import Text from 'src/components/Text';
+import {rem} from 'src/utils/metrics';
 import * as theme from 'src/theme';
 import gallery from 'src/utils/gallery';
+import IconButton from 'src/components/IconButton';
 
 export default function Gallery() {
   const [projects, setProjects] = useState([]);
   const navigation = useNavigation();
+  const insets = useSafeArea();
 
   const fetchProjects = async () => {
     const items = await gallery.getProjects();
     setProjects(items);
+  };
+
+  const onRemove = (item) => () => {
+    return showNativeAlert({
+      title: 'Are you sure?',
+      message: 'Item will be deleted forever!',
+      buttons: [
+        { text: 'Ok', onPress: remove(item) },
+        { text: 'Cancel'},
+      ],
+    });
   };
 
   const remove = (item) => async () => {
@@ -26,19 +41,24 @@ export default function Gallery() {
     return unsubscribe;
   }, [navigation]);
 
+  const play = (item) => () => navigation.push('Play', {state: item.state});
+
   const renderProject = ({item}) => (
     <View style={styles.row}>
-      <Text value={item.state.nodes[1].name} />
-      <Button text="button_play" onPress={() => navigation.push('Play', {state: item.state})} />
-      <Button text="button_remove" onPress={remove(item)} />
+      <Text value={item.state.nodes[0].name} />
+      <View style={styles.controls}>
+        <IconButton icon="trash" onPress={onRemove(item)} />
+        <IconButton icon="play" onPress={play(item)} />
+      </View>
     </View>
   );
-
+  console.log({ projects });
   return (
     <>
       <FlatList
         data={projects}
         renderItem={renderProject}
+        contentContainerStyle={{paddingTop: insets.top}}
         keyExtractor={(item) => `${item.id}`}
       />
     </>
@@ -54,5 +74,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.offset,
+    borderBottomWidth: rem(1),
+  },
+  controls: {
+    flexDirection: 'row',
   },
 });

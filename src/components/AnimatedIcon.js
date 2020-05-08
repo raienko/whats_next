@@ -1,7 +1,7 @@
 import React from 'react';
 import LottieView from 'lottie-react-native';
 
-export default function Icon({size, onRef, ...rest}) {
+export default function AnimatedIcon({size, onRef, ...rest}) {
   const handleRef = (ref) => {
     if (!ref) {
       return;

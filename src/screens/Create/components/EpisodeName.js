@@ -6,7 +6,7 @@ import Touchable from 'src/components/Touchable';
 import {rem} from 'src/utils/metrics';
 import * as theme from 'src/theme';
 
-export default function EpisodeInfo({episode, onEdit, style, onPress, ...rest}) {
+export default function EpisodeName({episode, onEdit, style, onPress, ...rest}) {
   return (
     <View style={[styles.wrapper].concat(style)}>
       <Text style={styles.title} text="episode" value={` #${episode.id + 1}`} />
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     width: rem(180),
     margin: theme.offset,
     padding: theme.offset,
-    backgroundColor: 'yellow',
+    backgroundColor: theme.colors.secondary,
     borderRadius: theme.borderRadius,
     ...theme.shadow,
   },

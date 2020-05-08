@@ -4,7 +4,9 @@ export const status = {
   recording: 'recording',
   splitting: 'splitting',
   switching: 'switching',
-  finished: 'finished',
+  saved: 'saved',
+  uploading: 'uploading',
+  uploaded: 'uploaded',
 };
 
 export const keys = [

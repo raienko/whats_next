@@ -3,9 +3,9 @@ import {View, StyleSheet} from 'react-native';
 import Button from 'src/components/Button';
 import {rem} from 'src/utils/metrics';
 import * as theme from 'src/theme';
-import EpisodeInfo from './EpisodeInfo';
+import EpisodeName from './EpisodeName';
 
-export default function SetupEpisodes({onEdit, state, onStart}) {
+export default function SplittingControls({onEdit, state, onStart}) {
   const [nodeA, setNodeA] = useState(null);
   const [nodeB, setNodeB] = useState(null);
   const [active, setActive] = useState();
@@ -39,13 +39,13 @@ export default function SetupEpisodes({onEdit, state, onStart}) {
 
   return (
     <View style={styles.wrapper}>
-      <EpisodeInfo
+      <EpisodeName
         episode={nodeA}
         onEdit={updateNodeA}
         style={[styles.containerA, active === nodeA.id && styles.active]}
         onPress={() => setActive(nodeA.id)}
       />
-      <EpisodeInfo
+      <EpisodeName
         episode={nodeB}
         onEdit={updateNodeB}
         style={[styles.containerB, active === nodeB.id && styles.active]}

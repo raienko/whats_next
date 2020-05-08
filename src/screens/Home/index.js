@@ -12,12 +12,8 @@ export default function Home() {
   const create = () => navigation.navigate('Create');
   return (
     <View style={styles.wrapper}>
-      <View style={[styles.header, {paddingTop: insets.top}]}>
-
-      </View>
       <Gallery />
       <View style={[styles.footer, {paddingBottom: insets.bottom}]}>
-        <Button text="button_settings" />
         <Button text="button_create" onPress={create} />
       </View>
     </View>
