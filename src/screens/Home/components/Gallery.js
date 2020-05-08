@@ -52,16 +52,16 @@ export default function Gallery() {
       </View>
     </View>
   );
-  console.log({ projects });
+
   return (
-    <>
+    <View style={{paddingTop: insets.top, flex: 1}}>
+      <Text text="my_gallery" style={styles.title} />
       <FlatList
         data={projects}
         renderItem={renderProject}
-        contentContainerStyle={{paddingTop: insets.top}}
         keyExtractor={(item) => `${item.id}`}
       />
-    </>
+    </View>
   );
 }
 
@@ -78,5 +78,9 @@ const styles = StyleSheet.create({
   },
   controls: {
     flexDirection: 'row',
+  },
+  title: {
+    margin: theme.offset,
+    fontSize: rem(25),
   },
 });

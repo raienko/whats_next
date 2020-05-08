@@ -20,6 +20,10 @@ export const setStatus = (dispatch) => (status) => {
   return dispatch({type: types.SET_STATUS, payload: {status}});
 };
 
+export const save = (dispatch) => () => {
+  return dispatch({type: types.SAVE});
+};
+
 export const resetState = (dispatch) => () => {
   return dispatch({type: types.RESET_STATE});
 };

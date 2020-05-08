@@ -8,6 +8,7 @@ export const initialState = {
   edges: [],
   currentNode: undefined,
   status: status.loading,
+  saved: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -22,6 +23,8 @@ export default function reducer(state = initialState, action) {
       return setCurrentNode(state, action.payload);
     case types.SET_STATUS:
       return setStatus(state, action.payload);
+    case types.SAVE:
+      return save(state, action.payload);
     case types.RESET_STATE:
       return resetState();
     default:
@@ -42,7 +45,7 @@ const updateNode = (state, {id, changes}) => {
   });
   const updated = nodes.concat(node);
   updated.sort(sortById);
-  return {...state, nodes: updated};
+  return {...state, nodes: updated, saved: false};
 };
 
 const createBreakpoint = (state) => {
@@ -71,6 +74,13 @@ const setStatus = (state, {status}) => {
   return {
     ...state,
     status,
+  };
+};
+
+const save = (state) => {
+  return {
+    ...state,
+    saved: true,
   };
 };
 

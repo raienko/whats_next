@@ -61,6 +61,7 @@ export default function Create() {
   };
 
   const save = async () => {
+    await actions.save(dispatch)();
     await gallery.saveProject(state);
     leaveScreen();
   };

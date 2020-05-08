@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSafeArea} from 'react-native-safe-area-context';
 import {rem} from 'src/utils/metrics';
 import Button from 'src/components/Button';
-import Gallery from './Gallery';
+import Gallery from './components/Gallery';
 
 export default function Home() {
   const navigation = useNavigation();

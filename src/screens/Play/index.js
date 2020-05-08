@@ -4,8 +4,11 @@ import Video from 'react-native-video';
 import Text from 'src/components/Text';
 import Button from 'src/components/Button';
 import BackButton from 'src/components/BackButton';
+import RemoveButton from 'src/components/RemoveButton';
 import Spinner from 'src/components/Spinner';
-import {screenWidth, screenHeight} from 'src/utils/metrics';
+import SaveButton from 'src/components/SaveButton';
+import {screenWidth, screenHeight, rem} from 'src/utils/metrics';
+import * as theme from 'src/theme';
 
 export default function Play({route, navigation}) {
   const player = useRef();
@@ -48,6 +51,14 @@ export default function Play({route, navigation}) {
     start();
   }, []);
 
+  const save = () => {
+    leaveScreen();
+  };
+
+  const remove = () => {
+    leaveScreen();
+  };
+
   return (
     <View style={styles.wrapper}>
       <Video
@@ -56,7 +67,7 @@ export default function Play({route, navigation}) {
         onEnd={next}
         style={styles.video}
       />
-      <Text value={episode ? episode.name : 'Initial'} style={styles.title} />
+      {episode && <Text value={episode.name} style={styles.title} />}
       {
         options &&
         <View style={styles.controls}>
@@ -72,7 +83,13 @@ export default function Play({route, navigation}) {
           />
         </View>
       }
-      <Button text="button_restart" onPress={start} />
+      <View style={styles.panel}>
+        {
+          !state.saved && <SaveButton onPress={save} />
+        }
+        <Button text="button_restart" onPress={start} />
+        <RemoveButton onPress={remove} />
+      </View>
       <BackButton onPress={leaveScreen} />
       <Spinner visible={!episode} />
     </View>
@@ -90,6 +107,12 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight * 0.8,
   },
+  panel: {
+    flexDirection: 'row',
+    backgroundColor: 'gray',
+    alignItems: 'center',
+    borderRadius: theme.borderRadius,
+  },
   controls: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
@@ -97,6 +120,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
+    position: 'absolute',
+    top: rem(50),
+    fontSize: rem(25),
     backgroundColor: 'yellow',
+    paddingHorizontal: theme.offset,
   },
 });

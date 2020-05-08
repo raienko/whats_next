@@ -3,6 +3,8 @@ import {View, StyleSheet, FlatList} from 'react-native';
 import AnimatedIcon from 'src/components/AnimatedIcon';
 import Text from 'src/components/Text';
 import IconButton from 'src/components/IconButton';
+import SaveButton from 'src/components/SaveButton';
+import PlayButton from 'src/components/PlayButton';
 import {rem} from 'src/utils/metrics';
 import * as theme from 'src/theme';
 import animation from './checked_animation';
@@ -32,8 +34,8 @@ export default function SwitchingControls({state, onRecord, onPlay, onSave}) {
       {
         finished &&
         <View style={styles.panel}>
-          <IconButton icon="save" onPress={onSave} style={styles.save} />
-          <IconButton icon="play" onPress={onSave} style={styles.play} />
+          <SaveButton onPress={onSave} />
+          <PlayButton onPress={onPlay} />
         </View>
       }
     </View>

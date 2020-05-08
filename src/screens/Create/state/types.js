@@ -8,4 +8,6 @@ export const SET_CURRENT_NODE = 'SET_CURRENT_NODE';
 
 export const SET_STATUS = 'SET_STATUS';
 
+export const SAVE = 'SAVE';
+
 export const RESET_STATE = 'RESET_STATE';
