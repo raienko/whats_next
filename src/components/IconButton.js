@@ -10,7 +10,7 @@ export default function IconButton({style, icon, color, collection, ...rest}) {
       <VectorIcon
         name={icon}
         collection={collection}
-        size={rem(40)}
+        size={rem(30)}
         color={color}
       />
     </Touchable>

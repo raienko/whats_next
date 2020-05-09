@@ -57,7 +57,7 @@ export default function Create() {
   };
 
   const play = async () => {
-    return navigation.navigate('Play', state);
+    return navigation.navigate('Play', {state});
   };
 
   const save = async () => {
@@ -66,7 +66,6 @@ export default function Create() {
     leaveScreen();
   };
 
-  const currentEpisode = state.nodes.find((node) => node.id === state.currentNode);
   return (
     <View style={styles.wrapper}>
       <Camera onReady={handleCameraReady} onRef={registerCamera} />
@@ -77,10 +76,7 @@ export default function Create() {
         }
         {
           state.status === status.recording &&
-          <>
-            <Text style={styles.title} value={currentEpisode.name} />
-            <RecordingControls state={state} onSplit={split} onStop={stop} />
-          </>
+          <RecordingControls state={state} onSplit={split} onStop={stop} />
         }
         {
           state.status === status.splitting

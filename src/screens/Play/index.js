@@ -1,12 +1,11 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
 import Video from 'react-native-video';
-import Text from 'src/components/Text';
+import Title from 'src/components/Title';
+import RestartButton from 'src/components/RestartButton';
 import Button from 'src/components/Button';
 import BackButton from 'src/components/BackButton';
-import RemoveButton from 'src/components/RemoveButton';
 import Spinner from 'src/components/Spinner';
-import SaveButton from 'src/components/SaveButton';
 import {screenWidth, screenHeight, rem} from 'src/utils/metrics';
 import * as theme from 'src/theme';
 
@@ -51,14 +50,6 @@ export default function Play({route, navigation}) {
     start();
   }, []);
 
-  const save = () => {
-    leaveScreen();
-  };
-
-  const remove = () => {
-    leaveScreen();
-  };
-
   return (
     <View style={styles.wrapper}>
       <Video
@@ -67,7 +58,7 @@ export default function Play({route, navigation}) {
         onEnd={next}
         style={styles.video}
       />
-      {episode && <Text value={episode.name} style={styles.title} />}
+      {episode && <Title value={episode.name} />}
       {
         options &&
         <View style={styles.controls}>
@@ -83,13 +74,7 @@ export default function Play({route, navigation}) {
           />
         </View>
       }
-      <View style={styles.panel}>
-        {
-          !state.saved && <SaveButton onPress={save} />
-        }
-        <Button text="button_restart" onPress={start} />
-        <RemoveButton onPress={remove} />
-      </View>
+      <RestartButton onPress={start} style={styles.restart} />
       <BackButton onPress={leaveScreen} />
       <Spinner visible={!episode} />
     </View>
@@ -101,17 +86,11 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000',
+    // backgroundColor: '#ccc',
   },
   video: {
     width: screenWidth,
     height: screenHeight * 0.8,
-  },
-  panel: {
-    flexDirection: 'row',
-    backgroundColor: 'gray',
-    alignItems: 'center',
-    borderRadius: theme.borderRadius,
   },
   controls: {
     ...StyleSheet.absoluteFillObject,
@@ -119,11 +98,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  title: {
+  restart: {
     position: 'absolute',
-    top: rem(50),
-    fontSize: rem(25),
-    backgroundColor: 'yellow',
-    paddingHorizontal: theme.offset,
+    right: 0,
+    bottom: rem(30),
   },
 });

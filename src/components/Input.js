@@ -1,15 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 import * as theme from 'src/theme';
-import {PreferencesContext} from 'src/Preferences';
-import translate from 'src/utils/translate';
+import localization from 'src/utils/localization';
 
 export default function Input({style, placeholder, ...rest}) {
-  const {language} = useContext(PreferencesContext);
+  const placement = placeholder ? localization.translate(placeholder) : undefined;
   return (
     <TextInput
       {...rest}
-      placeholder={translate(placeholder, language)}
+      placeholder={placement}
       style={[styles.input].concat(style)}
       placeholderTextColor="#eee"
     />

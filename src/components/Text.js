@@ -1,14 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Text, StyleSheet} from 'react-native';
-import translate from 'src/utils/translate';
+import localization from 'src/utils/localization';
 import * as theme from 'src/theme';
-import {PreferencesContext} from 'src/Preferences';
 
-export default function Span({text, value, style, children, ...rest}) {
-  const {language} = useContext(PreferencesContext);
+export default function Span({text, options, value, style, children, ...rest}) {
   return (
     <Text {...rest} style={[styles.text].concat(style)}>
-      {!!text && translate(text, language)}
+      {!!text && localization.translate(text, options)}
       {value}
       {children}
     </Text>

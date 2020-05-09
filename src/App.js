@@ -1,11 +1,11 @@
 import React from 'react';
 import Router from 'src/screens/Router';
-import Preferences from './Preferences';
+import Core from 'src/core';
 
 export default function App() {
   return (
-    <Preferences>
+    <Core>
       <Router />
-    </Preferences>
+    </Core>
   );
 }

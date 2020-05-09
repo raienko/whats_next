@@ -9,7 +9,11 @@ import Gallery from './components/Gallery';
 export default function Home() {
   const navigation = useNavigation();
   const insets = useSafeArea();
-  const create = () => navigation.navigate('Create');
+
+  const create = async () => {
+    navigation.navigate('Create');
+  };
+
   return (
     <View style={styles.wrapper}>
       <Gallery />
@@ -33,7 +37,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    backgroundColor: '#ccc',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -4,6 +4,7 @@ import {useSafeArea} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import showNativeAlert from 'src/utils/showNativeAlert';
 import Text from 'src/components/Text';
+import Title from 'src/components/Title';
 import {rem} from 'src/utils/metrics';
 import * as theme from 'src/theme';
 import gallery from 'src/utils/gallery';
@@ -55,7 +56,7 @@ export default function Gallery() {
 
   return (
     <View style={{paddingTop: insets.top, flex: 1}}>
-      <Text text="my_gallery" style={styles.title} />
+      <Title text="my_gallery" style={styles.title} />
       <FlatList
         data={projects}
         renderItem={renderProject}
@@ -74,13 +75,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.offset,
-    borderBottomWidth: rem(1),
+    borderBottomWidth: rem(3),
+    margin: theme.offset,
+    backgroundColor: theme.colors.primary,
+    borderTopLeftRadius: theme.borderRadius,
+    borderTopRightRadius: theme.borderRadius,
   },
   controls: {
     flexDirection: 'row',
   },
   title: {
-    margin: theme.offset,
-    fontSize: rem(25),
+    position: 'relative',
+    top: 0,
   },
 });
